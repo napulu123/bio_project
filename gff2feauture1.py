@@ -4,7 +4,7 @@
 
 def clean_seq(input_seq):
 	clean = input_seq.upper()
-	clean = clean.replace('N',")
+	clean = clean.replace('N','')
 	return clean
 #function to clean up a DNA sequence
 
@@ -45,7 +45,7 @@ def exon_name(gff_line):
 #Make dictionary
 #key = feature_type, value = concatenation of all sequence of that type 
 
-feature sequences = {}
+feature_sequences = {}
 #key = exon, value = sequences
 exon_sequences = {}
 #key = gene, value = all exons in that gene
@@ -54,40 +54,41 @@ gene_sequences ={}
 import sys
 import collections
 
-if len(sys.argv) <3:
-	print(sys.argv[0] +":requires.fasta and .gff files")
-	sys.exit()
+#if len(sys.argv) <3:
+#	print(sys.argv[0] +":requires.fasta and .gff files")
+#	sys.exit()
 
 
 fsa = sys.argv[1]
 gff = sys.argv[2]
 
-fsa_file = open(watermelon.fsa,'r')
+fsa_file = open(fsa,'r')
 genome= ''
 
 for line in fsa_file:
-	if not line.starts with ('>')"
+	if not line.startswith(">"):
 		genome = genome + line.strip()
 fsa_file.close()
 
 genome_length = len(genome)
 
 
-gff_file = open(watermelon.gff,'r')
+gff_file = open(gff,'r')
 
 for line in gff_file:
 	stuff = line.split('	')
+		
 	feature = stuff[2].strip()
 	start_index = int(stuff[3]) -1
 	strand = clean_seq(genome[start_index: int(stuff[4])])
 	
 	if feature in feature_sequences:
-		feature_sequences[feature] = feature_sequences[feature] + stranf
+		feature_sequences[feature] = feature_sequences[feature] + strand
 	else:
 		feature_sequences[feature] = strand
 
 	stuff = line.split('t')
-	if data[2].strip() == 'CDS'
+	if data[2].strip() == 'CDS':
 		exon = exon_name(line)
 		start_index = int(stuff[3]) -1
 		strand = clean_seq(genome [start_index:int(stuff[4])])
@@ -122,7 +123,7 @@ for feature_type,sequence in feature_sequences.items():
 
 for gene,sequence in gene_sequences.items():
 	print('>' + gene)
-	print( sequence + '\n')
+	print( sequencde + '\n')
 
 
 
